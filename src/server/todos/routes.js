@@ -19,4 +19,17 @@ router.post('/', function (req,res){
   });
 });
 
+//.put is the convention to update an item in an existing db
+router.put('/:id', function(req,res) {
+  var id = req.params.id;
+  //finds the object in the db that matches the object send down from the client side
+  Todo.update({_id: mongoose.Types.ObjectId(id)}, {
+    //set the new task to the task sent down from the client side
+    $set: {task: req.body.task}
+  }, function (err) {
+    if (err) { console.log(err);}
+    res.send('ToDo updateed');
+  })
+});
+
 module.exports = router
