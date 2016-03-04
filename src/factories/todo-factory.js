@@ -4,11 +4,12 @@ import angular from 'angular';
 const todoFactory = angular.module('app.todoFactory', [])
 
 .factory('todoFactory', ($http) => {
-    // function getTasks($scope) {
-    //     $http.get('/todos').success(response => {
-    //         $scope.todos = response.todos;
-    //     });
-    // }
+    //fetch all the tasks fromt he db
+    function getTasks($scope) {
+        $http.get('/todos').success(response => {
+            $scope.todos = response.todos;
+        });
+    }
 
     function createTask($scope, params) {
         // if (!$scope.createTaskInput) { return; }
@@ -18,7 +19,8 @@ const todoFactory = angular.module('app.todoFactory', [])
             isCompleted: false,
             isEditing: false
         }).success(response => {
-            // getTasks($scope);
+            //re-get all the tasks in db and relace scope.todos with items in the db
+            getTasks($scope);
             $scope.createTaskInput = '';
             console.log(response);
         });
@@ -60,7 +62,7 @@ const todoFactory = angular.module('app.todoFactory', [])
     }
 
     return {
-        // getTasks,
+        getTasks,
         createTask,
         updateTask,
         deleteTask,
