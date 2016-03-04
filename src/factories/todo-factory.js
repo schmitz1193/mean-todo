@@ -3,7 +3,7 @@ import angular from 'angular';
 
 const todoFactory = angular.module('app.todoFactory', [])
 
-.factory('todoFactory', () => {
+.factory('todoFactory', ($http) => {
     // function getTasks($scope) {
     //     $http.get('/todos').success(response => {
     //         $scope.todos = response.todos;
@@ -13,17 +13,18 @@ const todoFactory = angular.module('app.todoFactory', [])
     function createTask($scope, params) {
         // if (!$scope.createTaskInput) { return; }
 
-        // $http.post('/todos', {
-        //     task: $scope.createTaskInput,
-        //     isCompleted: false,
-        //     isEditing: false
-        // }).success(response => {
-        //     getTasks($scope);
-        //     $scope.createTaskInput = '';
-        // });
+        $http.post('/todos', {
+            task: $scope.createTaskInput,
+            isCompleted: false,
+            isEditing: false
+        }).success(response => {
+            // getTasks($scope);
+            $scope.createTaskInput = '';
+            console.log(response);
+        });
 
-        params.createHasInput = false;
-        $scope.createTaskInput = '';
+        // params.createHasInput = false;
+        // $scope.createTaskInput = '';
     }
 
     function updateTask(todo) {

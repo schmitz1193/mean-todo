@@ -8,9 +8,10 @@ router.get('/', function(req,res){
 });
 
 router.post('/', function (req,res){
+  console.log("did I even get here?");
   var todo = new Todo(req.body);
   todo.save(function(err) {
-    if (err) { console.log(err);}
+    if (err) { console.log("is this an error????");}
     console.log('Saved!!!!');
     res.send('SUCCESS!!');
   });
