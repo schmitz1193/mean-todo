@@ -28,8 +28,30 @@ router.put('/:id', function(req,res) {
     $set: {task: req.body.task}
   }, function (err) {
     if (err) { console.log(err);}
-    res.send('ToDo updateed');
+    res.send('ToDo updated');
   })
 });
+
+//delete a task
+router.delete('/:id', function(req, res) {
+    var id = req.params.id;
+    //finds the object in the db that matches the object send down from the client side
+    Todo.remove({ _id: mongoose.Types.ObjectId(id) }, function(err) {
+        if (err) { console.log(err); }
+
+        res.send('ToDo deleted');
+    });
+});
+
+
+// router.delete('/:id', function(req,res) {
+//   var id = req.params.id;
+//   Todo.remove({_id: mongoose.Types.ObjectId(id)
+//   }, function (err) {
+//     if (err) { console.log("WHAT WENT WRONG?");}
+//     console.log("HOw about here?????");
+//     res.send('ToDo deleted');
+//   })
+// });
 
 module.exports = router

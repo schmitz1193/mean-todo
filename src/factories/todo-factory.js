@@ -12,7 +12,8 @@ const todoFactory = angular.module('app.todoFactory', [])
     }
 
     function createTask($scope, params) {
-        // if (!$scope.createTaskInput) { return; }
+        //prevents a blank task from being created
+        if (!$scope.createTaskInput) { return; }
 
         $http.post('/todos', {
             task: $scope.createTaskInput,
@@ -41,11 +42,11 @@ const todoFactory = angular.module('app.todoFactory', [])
     }
 
     function deleteTask($scope, todoToDelete) {
-        // $http.delete(`/todos/${todoToDelete._id}`).success(response => {
-        //     getTasks($scope);
-        // });
+        $http.delete(`/todos/${todoToDelete._id}`).success(response => {
+            getTasks($scope);
+        });
 
-        _.remove($scope.todos, todo => todo.task === todoToDelete.task);
+    //     _.remove($scope.todos, todo => todo.task === todoToDelete.task);
     }
 
     function watchCreateTaskInput(params, $scope, val) {
